@@ -30,7 +30,7 @@ public class MyFirstTest {
         //System.setProperty("webdriver.gecko.driver", "C:\\workspace\\geckodriver.exe");
         //FirefoxOptions firefoxOptions = new FirefoxOptions().setBinary("C:\\Program Files\\Mozilla Firefox68\\firefox.exe");
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, 10);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
@@ -42,6 +42,7 @@ public class MyFirstTest {
         WebElement q = driver.findElement(By.name("q"));
         driver.navigate().refresh();
         q.sendKeys("webdriver");
+        ///22
         //List<WebElement> alist = driver.findElements(By.name("q"));
         driver.findElement(By.name("btnK")).click();
         System.out.println(driver.getTitle());
