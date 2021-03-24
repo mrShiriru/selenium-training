@@ -6,6 +6,10 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,15 +19,34 @@ import java.util.concurrent.TimeUnit;
 
 public class TestBase {
 
-    public WebDriver driver;
+    public EventFiringWebDriver driver;
+    //public WebDriver driver;
     public WebDriverWait wait;
+    public Alert alert;
 
     @Before
     public void start(){
-        //driver = new ChromeDriver();
-        driver = new FirefoxDriver();
+
+//        DesiredCapabilities ff = DesiredCapabilities.firefox();
+//        ff.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
+////        ff.setCapability("unexpectedAlertBehaviour", "dismiss");
+//        WebDriver driver = new FirefoxDriver(ff);
+
+
+//        driver = new ChromeDriver();
+//        driver = new FirefoxDriver();
+
+        driver = new EventFiringWebDriver(new FirefoxDriver());
+        MyListener myListener = new MyListener();
+        driver.register(myListener);
+
         //driver = new InternetExplorerDriver();
         wait = new WebDriverWait(driver, 10);
+
+//        alert = (new WebDriverWait(driver, 10))
+//                .until(ExpectedConditions.alertIsPresent());
+
+
         //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
